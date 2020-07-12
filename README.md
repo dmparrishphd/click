@@ -1,13 +1,14 @@
 # click
 Capture mouse clicks in R
 
-## Future
-
-Plan for v0.0-2: The return of the primary function will be in a more compact form.
-
 ## Installation
 
-Download the .tar.gz file. Unzip the tar file. Extract the contents of the tar file to the directory `SOURCE`, where `SOURCE` is a path, including the final path separator. Start a fresh R session. Execute
+Download
+
+ - the click.2 directory and contents or, for the older click, download
+ - the .tar.gz file. Unzip the tar file and extract the contents of the tar file
+ 
+ Download (or extracted download) should be in the directory `SOURCE`, where `SOURCE` is a path, including the final path separator. Start a fresh R session. Execute
 
     install.packages(
 	      pkgs=paste0(SOURCE, "click"),
