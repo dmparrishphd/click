@@ -4,11 +4,11 @@
 .GR.EVENT.MOUSE.MOVE <- 4
 .GR.EVENT.KBD        <- "8"
 
-.NAMES <- c("EVENT", "KEY", "X", "Y", paste0("B", 0:2))
-
 .GR.BUTTONS.NULL <- rep(NA_real_, 3)
 .GR.XY.NULL  <- .GR.BUTTONS.NULL[-1]
 .GR.KEY.NULL <- .GR.BUTTONS.NULL[1]
+
+.NAMES <- c("event", "key", "x", "y", paste0("b", 0:2))
 
 .onMouse <- function(event, buttons, x, y) `names<-`(
 	c(event, .GR.KEY.NULL, x, y, replace(c(0, 0, 0), buttons + 1, 1)),
@@ -47,11 +47,16 @@
 
     GRAPHICS.EVENT.HANDLERS }
 
-click <- function(which=dev.cur(), env=NULL, getHandler=F) {
-    if (is.null(env)) {
-        env <- .makeGraphicsEventHandlerStd()
-        if (getHandler) return(env)
-    }
+click <- function(which=dev.cur(), option="") {
+    dev.set(which)
+    if (class(option) == "environment") {
+        env <- option
+    } else if (class(option) == "character") {
+        if (!nchar(option) || option == "handler") {
+            env <- .makeGraphicsEventHandlerStd()
+            if (option == "handler") return(env)
+        }
+    } else return ()
     ENV.SAVED <- getGraphicsEventEnv(which=which)
     setGraphicsEventEnv(which=which, env=env)
     EVENT <- getGraphicsEvent()
