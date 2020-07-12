@@ -1,0 +1,13 @@
+Package: click.2
+Type: Package
+Title: Facilitate Mouse or Keyboard Click Capture on a Device
+Version: 2.0-0
+Date: 2020-07-11
+Author: D. Michael Parrish [aut]
+Maintainer: R click <click.rpkg@yahoo.com>
+Description:
+    (Note the version number! This might answer such questions
+    as, "why is this package so poorly documented?") The primary
+    function captures a mouse click or keypress event.
+License: GPL (>= 2)
+Encoding: UTF-8
