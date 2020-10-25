@@ -1,4 +1,4 @@
-Installatin Alternative
+Installation Alternative
 =======================
 
 Installation (in the sense of `install.packages`) is not necessary.
