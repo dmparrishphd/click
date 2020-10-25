@@ -1,3 +1,6 @@
+Installatin Alternative
+=======================
+
 Installation (in the sense of `install.packages`) is not necessary.
 Rather, you may load and attach `click` from source using a process such as:
 
