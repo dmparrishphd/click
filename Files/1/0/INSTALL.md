@@ -11,7 +11,7 @@ Install
 -------
 
 The download (or extracted download) should be in the directory `SOURCE`,
-where `SOURCE` is a path, _including) the final path separator (e.g., `/`).
+where `SOURCE` is a path, _including_) the final path separator (e.g., `/`).
 
 Start a fresh R session. Execute
 
