@@ -10,6 +10,10 @@ Download one or more
 Install
 -------
 
+Installation (in the sense of `install.packages`) is
+[not necessary](https://github.com/dmparrishphd/click/blob/master/Files/1/0/INSTALL.ALT.md).
+However, if you prefer installation, read on.
+
 The download (or extracted download) should be in the directory `SOURCE`,
 where `SOURCE` is a path, _including_) the final path separator (e.g., `/`).
 
