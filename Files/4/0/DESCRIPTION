@@ -1,0 +1,11 @@
+Package: clicks
+Type: Package
+Title: Capture Specific Mouse Clicks or Keypress Events
+Version: 3.0-0
+Date: 2020-10-26
+Author: D. Michael Parrish [aut]
+Maintainer: R click <click.rpkg@yahoo.com>
+Depends: click (3.0-0)
+Description: (see title)
+License: GPL (>= 2)
+Encoding: UTF-8
