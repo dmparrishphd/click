@@ -1,0 +1,251 @@
+\documentclass{article}
+\title{Click and Clack and Vampires}
+\author{D. Michael Parrish}
+\date{2021-05-23}
+\begin{document}
+\maketitle
+
+\begin{center}
+\texttt{
+Are you sure you want to delete "term\_paper\_final?"\\
+Click "Y" for "yes" or "N" for "no:"\\
+\phantom{M}\\
+YN
+}
+\end{center}
+\phantom{M} \hfill ---OS WTF [1]
+
+\begin{abstract}
+\noindent
+A method is described by which a tolerance controlling the
+computer interpretation of pointing device (such as a mouse)
+input may be investigated by individual users in an organic
+manner.
+The intended usage of the method is that each user may apply
+the knowledge gained from the investigation to the setting of
+one or more tolerances.
+Computer subroutines may apply these tolerances to
+the interpretation of each user's input.
+The goal is that user input is interpreted in a manner
+consistent with the user's intent.
+\end{abstract}
+
+\subsection*{Keywords}
+
+customization, Human-computer interface, mouse, personal computing
+
+\subsection*{Article History}
+
+2021-05-23 First Complete Draft\\
+2021-05-12 Partial Draft (description of method)\\
+
+\subsection*{License}
+
+Copyright 2021 D. Michael Parrish\\
+This article is licensed to all under the terms of CC BY-SA 4.0,\\
+https://creativecommons.org/licenses/by-sa/4.0/
+
+\section*{Prologue}
+
+Virginia was in a hurry.
+She furiously clicked the file icons to select which ones she
+wanted to attach to an urgent email response.
+
+That's what she thought she was doing.
+What actually happend was that her computer interpreted the
+mouse input as
+an instruction to move a directory containing one million files
+into another directory.
+
+Virgina felt personally betrayed by her personal computer.
+
+\subsection*{Definition}
+
+\textbf{vampire}: a trap door on a stage [2, 3]
+
+\section*{Introduction}
+
+Herein, we raise issue with a certain aspect of applications of
+human-computer interfaces---namely pointing devices---and
+present a method which could be part of a solution.
+
+The issue and solution have to do with tolerances surrounding
+the user's precision in specifying points.
+
+Below, we present background information,
+an organic method for estimating tolerance(s),
+and a particular application of the method.
+
+\section*{Background}
+
+Several widely-used graphical user interfaces (GUI's) include a
+facility for specifying a point.
+Such a specification might be associated with the intent to
+select an object (e.g., a file, a ``No'' button, or a menu) or
+to create a new one (e.g., whatever is associated with a
+particular menu item).
+
+Some of these GUI's have a user-controlled parameter---call it
+\emph{tolerance}---that defines ``close enough.'' In other
+words---suppose the user's pointing device is a mouse---between
+the button-down and button-up events, the mouse may move, and so
+there are at least two points associated with the \emph{click}
+(botton-down followed by button-up events).
+If the two points are close enough, they are taken to represent
+a single point. If the two points are too far apart, the point
+might be ignored.
+
+However, there may be something intolerable about the tolerance:
+the manner in which the user might gain knowledge sufficient to
+appropriately specify it.
+Typically, the tolerance is specified by a \emph{number}.
+How is Virginia supposed to know which number corresponds to
+the steadyness of her hand?
+One method by which she might come to such knowledge is
+presented as follows.
+
+\section*{Method}
+
+The user moves the mouse quickly, guiding the mouse cursor to an
+arbitrary location, then clicks. This process is repeated many
+times.
+
+Each time the mouse-button state changes, the mouse position is
+logged.
+There are two positions for each click (one for button-down, one
+for button-up), as well as the \emph{duration} of the click.
+
+When enough repetitions have been performed, each of the logged
+pairs of positions are differenced.
+Each click $k$ might be represented
+
+$$(\Delta t, \Delta x,  \Delta y)_k$$
+
+Each of these differences represent the user's accuracy in
+picking a single point;
+$(\Delta t, 0, 0)$ would correspond to exactness.
+
+The differences are organized into three collections: one for
+each direction $x$ and $y$, and one for duration.
+
+Post-processing and statistics are computed on the three
+collections.
+Post-processing steps might include taking the absolute value,
+then replacing all the zero differences with the next smallest
+value.
+Post-processing might also include casting out the more extreme
+absolute differences.
+
+The statistics establish thresholds of tolerance in each
+direction for estimating the user's intent when clicking: if the
+differences in position between button-down and button-up fall
+within the tolerance, the corresponding action might be
+interpreted as the user specifying a single point.
+If the differences in position are greater, but the
+\emph{duration} $\Delta t$ is also large, the event might be
+interpreted as a click-and-drag operation.
+Finally, if the differences in position exceed the tolerance,
+and $\Delta t$ is short (as when the user's elbow is bumped
+mid-click), the event might be interpreted as noise, and
+therefore to be ignored.
+
+Post-processed results are presented to the user.
+
+\section*{Anecdotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+As an example, the author conducted an experiment in which
+the subject (the author) entered several mouse clicks, moving the
+mouse quickly between clicks, and attempting to stop during each
+click.
+
+The mouse position was captured at each button-down and
+button-up event.
+The difference between the mouse position at button-down
+and at button-up was computed for each click.
+
+The resultant mouse movements were presented to the subject
+(see the accompanying Plate 1 [4]).
+The subject was free to use the information presented in order
+to select a tolerance for future clicks.
+
+\subsection*{Software}
+
+The above experiment was conducted using software[6] running in
+R[7] version 4.0.3.
+
+\section*{Discussion}
+
+Such a method might be offered to the user upon installation of
+new software.
+The method might also be made available in a ``Customize'' menu.
+
+The anecdotes provided in the correspondingly-named section do
+not include consideration of the time dimension.
+We leave such consideration to future work, and perhaps the work
+of others.
+
+\section*{Conclusion}
+
+In the author's opinion, personal computer software is too
+often impersonal.
+That is, facilities for tailoring the user experience to to the
+user are lacking.
+The present paper has presented a small part of what might be
+a larger effort toward ``making the computer `personal again{'}{''}[5].
+
+\section*{References}
+
+[1] OS WTF (a fictitious operating system whose user-prompts may
+be all too familiar.)
+
+\phantom{M}
+
+\noindent
+[2] The Free Dictionary (2021-05-12) ``vampire.'' therein attributed to 
+HarperCollins (2005) Collins Discovery Encyclopedia, 1 ed.
+https://encyclopedia2.\allowbreak thefreedictionary.com/vampire
+
+\phantom{M}
+
+\noindent
+[3] Wiki User (2013-12-13) ``Why is a stage trap door called a
+vampire?'' https:/\slash
+www.\allowbreak answers.\allowbreak com\slash
+Q/Why\_is\_a\_stage\_trap\_door\_called\_a\_vampire
+
+\phantom{M}
+
+\noindent
+[4] Parrish DM (2021-05-19) ``Test Results''
+https:/\slash github.com\slash dmparrishphd\slash click\slash
+blob\slash master\slash Files\slash 6/0\slash Vampire\slash
+Drafts\slash clickAndClackAnd\allowbreak Vampires\_\\
+Plate1.pdf
+
+\phantom{M}
+
+\noindent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+[5] HP (2008-06-10) ``HP Bridges Work, Play, Home and
+Entertainment with Global Personal Systems Product Launch.''
+https:/\slash www8.hp.com\slash us/en\slash hp-news\slash
+press-release.html?\allowbreak id=169893
+
+\phantom{M}
+
+\noindent
+[6] Parrish DM (2021) clickAndClackAndVampires.R
+https:/\slash github.com\slash\\
+dmparrishphd\slash click\slash
+blob\slash master\slash Files\slash 6/0\slash Vampire/R\slash
+clickAndClackAnd\\
+Vampires.R
+
+\phantom{M}
+
+\noindent
+[7] The R Foundation for Statistical Computing (2020-10-10) R v4.0.3
+https:/\slash www.\allowbreak r-project.\allowbreak org/
+
+\end{document}
