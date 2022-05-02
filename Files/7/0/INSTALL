@@ -1,0 +1,20 @@
+Installing the click protopackage
+
+                The click protopackage is not designed to be
+                installed in the sense of the install.packages
+                of the utils package. Rather, the click
+                protopackage is designed to be sourced in the
+                sense of the source function in the base
+                package.
+
+                To use the click protopackage as designed, copy
+                the protopackage to a known location, herein
+                called LIB. Then use the following to attach the
+                click environment to the search path:
+
+                LIB <- "file-path-to-the-click-protopackage"
+                BUILD.R <- "/inst/extdata/R/2/0/build/0/1.R" 
+                attach (
+                    what = source (
+                        paste0 ( LIB , BUILD.R ) ) [[ 1 ]] ( LIB ) ,
+                    name = "protoPkg:click" )

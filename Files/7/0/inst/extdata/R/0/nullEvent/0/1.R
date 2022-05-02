@@ -1,0 +1,1 @@
+nullEvent <- function () PROTO

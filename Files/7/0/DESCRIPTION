@@ -1,0 +1,11 @@
+Package: click
+Type: Package
+Title: Facilitate Mouse or Keyboard Event-Capture on a Device
+Version: 7.0
+Date: 2022-10-25
+Author: D. Michael Parrish [aut]
+Maintainer: R click <click.rpkg@yahoo.com>
+Description: The primary function, click, captures a mouse click
+    or keypress event.
+License: AGPL-3
+Encoding: UTF-8

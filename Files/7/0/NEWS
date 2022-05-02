@@ -1,0 +1,19 @@
+2022-04-29   D. Michael Parrish   <click.rpkg@yahoo.com>
+
+        Created a new click protopackage
+
+        * A copy of click 3.0-0 (click/Files/3/0) has been
+        modified to produce click 7.0-0 (click/Files/7/0).
+        * By design, only one function (click) is exposed, so as
+        to minimize polution of the search path. Other functions
+        intended as part of the interface are accessible by
+        using the query arguments of the click function.
+        * The file structure has been completely redesigned in
+        attempt to optimize for persistence while facilitating
+        change.
+        * Two ways of building the protopackage are offered,
+        corresponding to two differently-behaved click
+        functions: one keeps the return-values consistent with
+        previous versions, and the second has the same type of
+        return-value for both keyboard key and mouse button
+        events (a one-row data.frame).

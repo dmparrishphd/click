@@ -1,0 +1,1 @@
+NNAMES <- length ( NAMES )

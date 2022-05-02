@@ -1,0 +1,9 @@
+TEMPLATE <- data.frame (
+    stringsAsFactors = FALSE ,
+    event = NA_character_ ,
+    key = NA_character_ ,
+    x = NA_real_ ,
+    y = NA_real_ ,
+    b0 = FALSE ,
+    b1 = FALSE ,
+    b2 = FALSE )
