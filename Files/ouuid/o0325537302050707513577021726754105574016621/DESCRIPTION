@@ -1,0 +1,17 @@
+Package: o0325537302050707513577021726754105574016621
+Type: Package
+Title: Capture mouse and keyboard events.
+Version: 2022.08-13
+Date: 2022-08-13
+Author: D. Michael Parrish [aut]
+Maintainer: Neat O <neatoverse@yahoo.com>
+Description: Capture mouse and keyboard events.
+        This file is
+    o0325537302050707513577021726754105574016621/DESCRIPTION
+License: AGPL-3
+Encoding: UTF-8
+Installation: To install, copy this package, including its
+    containing subdirectory, to a known directory. The
+    subdirectory should be named
+    o0325537302050707513577021726754105574016621
+    to be consistent with the design of this package.

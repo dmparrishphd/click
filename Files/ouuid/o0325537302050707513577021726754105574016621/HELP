@@ -1,0 +1,102 @@
+              o0325537302050707513577021726754105574016621/click
+________________________________________________________________
+
+                                                           click
+================================================================
+
+Capture keyboard and mouse events.
+
+                                                           Usage
+----------------------------------------------------------------
+
+attach (
+    what = source(pathname)[[1]],
+    name = "protoPkg:click")
+HANDLERS
+envir(graphicsEventHandlers)
+stream(
+    env,
+    which = dev.cur(),
+    endStreaming = function(X) {
+        identical(X[[1]]$key, "Q") },
+    timeout = 10,
+    FUN = function(X){FALSE})
+
+                                                       Arguments
+----------------------------------------------------------------
+
+graphicsEventHandlers: a list containing named
+elements compatible with getGraphicsEvent. The
+value HANDLERS is one such list. See also
+help(getGraphicsEvent).
+
+env: an environment compatible with
+setGraphicsEventEnv. One such environment may be
+computed with envir(HANDLERS).
+
+which: specification of the device from which to
+get events.
+
+endStreaming: a function that is evaluated after
+each event; streaming stops after this function
+returns TRUE.
+
+timeout: a number of seconds; streaming stops
+when an event is detected to occur after this
+amount of time.
+
+FUN: another function that is evaluated after each
+event; streaming stops after this function
+returns TRUE.
+
+                                                         Details
+----------------------------------------------------------------
+
+It is intended that the endStreaming function
+have no side effects. Similarly, it is intended
+that if FUN is other than the default, there
+will be an effect, typically to redraw the plot
+in response to the events.
+
+R may respond with a cryptic message if the
+wrong types of arguments are specified, e.g.,
+for the env argument.
+                                                        Examples
+----------------------------------------------------------------
+
+
+ClickEnv <- source ( pathname ) [[ 1 ]]
+
+dev.new ()
+
+ENVIR <- with ( ClickEnv , envir ( HANDLERS ) )
+ClickEnv $ stream ( ENVIR )
+# R waits for interaction with the graphics device, then starts a
+# countdown. For best results, activate the graphic device
+# (e.g., by clicking on the title bar) before moving the mouse
+# over the window pane.
+
+
+# Similar to the above, but input ends upon pressing the
+# spacebar:
+ClickEnv $ stream (
+    ENVIR ,
+    endStreaming = function ( X )
+            identical ( X [[ 1 ]] $ key , " " ) )
+
+# The mouseMove events may be ignored using this technique:
+HANDLERS.NOMOVE <- ClickEnv $ HANDLERS
+HANDLERS.NOMOVE [[ "onMouseMove" ]] <- NULL
+ENVIR.NOMOVE <- ClickEnv $ envir ( HANDLERS.NOMOVE )
+ClickEnv $ stream ( ENVIR.NOMOVE , 
+    endStreaming = function ( X ) ! is.na ( X [[ 1 ]] $ key ) )
+
+par(mai = rep(0 , 4))
+image(0:1, 0:1, matrix(1), col = NA)
+redraw <- function(X) {
+    if(X[[1]]$event == "mouseUp")
+            points(X[[1]]$x, X[[1]]$y)
+    FALSE }
+# Consistency between FUN and the plot is the
+# responsibility of the programmer.
+ClickEnv $ stream ( ENVIR.NOMOVE , FUN = redraw)
