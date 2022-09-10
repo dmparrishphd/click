@@ -1,0 +1,84 @@
+Package: o3261154561143542514275047060431465673452603
+Type: Package
+Title: Click to select points
+Version: 2022.09-10
+Date: 2022-09-10
+Author: D. Michael Parrish [aut]
+Maintainer: Neat O <neatoverse@yahoo.com>
+Description:
+    Capture a left-click mouse event on a graphics
+    device (tested on "windows" and "X11cairo" devices).
+        This file is
+    o3261154561143542514275047060431465673452603
+License: AGPL-3
+Encoding: UTF-8
+Installation: To install, copy this package, including its
+    containing subdirectory, to a known directory. The
+    subdirectory should be named
+    o3261154561143542514275047060431465673452603
+    to be consistent with the design of this package.
+section--HELP:
+    ============================================================
+help---Usage:
+    ------------------------------------------------------------
+            # PRECONDITION: One of a few certain graphics
+            # devices must correspond with `dev.cur()`.
+    ipoint.click <- source ( paste0 ( pathname , "/ipoint.click.R" )
+        ) [[ 1 ]] ( pathname )
+            # where `pathname` is the pathname where this
+            # package is installed.  A successful **call** to
+            # ipoint.click requires that at least one graphics
+            # device be present.
+    ipoint.click(XY, leftClick, env, out = c("i", "leftClick", "env")) 
+help---Arguments:
+    -----------------------------------------------------------
+    XY:
+        A two-column numeric matrix. Coordinates for the "x" and
+        "y" directions are taken from columns 1 and 2,
+        consistent with the primary argument of `points`.
+    leftClick:
+        One of several functions that capture a left-click. See
+        Examples for one way to obtain such a function.
+    env:
+        One of several environments that support leftClick. See
+        Examples for one way to obtain such a function.
+    out:
+        Specifies the type of return desired: indices of
+        near-points ("i"), a function compatible with the
+        leftClick argument ("leftClick"), or an environment
+        compatible with the env argument ("env").
+help---Details:
+    ------------------------------------------------------------
+    Behavior is device dependent. See the lib/o26230640
+    subdirectory for additional information; that subdiretory is
+    a copy of o2623064040723351104365234371651414660040072.
+help---Examples:
+    ------------------------------------------------------------
+    dev.new()
+    M <- matrix(ncol = 2, byrow = TRUE, data = c(0, 0, 1, 0, 1, 1))
+    # REPLACE "pathname" WITH PATHNAME TO THIS PACKAGE:
+    pathname <- "pathname"
+    ipoint.click <- source ( paste0 ( pathname , "/ipoint.click.R" )
+	        ) [[ 1 ]] ( pathname )
+    image(9 * c(-1, 1), 9 * c(-1, 1), matrix(1), col = NA )
+    points(M)
+    text(M[, 1], M[, 2], seq_len(nrow(M)), pos = 4)
+            #   1:  A REQUIRED ENVIRONMENT AND FUNCTION ARE
+            #       COMPUTED INTERNALLY FOR EACH CALL:
+    ipoint.click ( M )
+            #   2:  FETCH THE REQUIRED ENVIRONMENT AND STORE FOR
+            #       FUTURE CALLS:
+    Env <- ipoint.click(out = "env")
+    ipoint.click (M, env = Env )
+            #   3:  FETCH THE REQUIRED FUNCTION AND STORE FOR
+            #       FUTURE CALLS. USE ONE FUNCTION FOR EACH DEVICE.
+    leftClick <- ipoint.click(env = E, out = "leftClick")
+    ipoint.click(M, leftClick = leftClick)
+            #   4:  RECOMMENDED SETUP FOR REPEATED CALLS WITH
+            #       THE SAME DEVICE. PRESS A KEYBOARD-KEY WITH
+            #       THE ACTIVE DEVICE'S WINDOW ACTIVE.
+    leftClick <- ipoint.click(out = "leftClick")
+    i <- integer(1)
+    while(length(i)) {
+        i <- ipoint.click(M, leftClick = leftClick)
+        cat(i, ": (", paste(M[i,], collapse = ", "), ")\n", sep = "") }
