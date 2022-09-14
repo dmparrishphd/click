@@ -1,0 +1,111 @@
+Package: o3305511514732034100265022276035257245577300
+Type: Package
+Title: Click to select points
+Version: 2022.09-14
+Date: 2022-09-14
+Author: D. Michael Parrish [aut]
+Maintainer: Neat O <neatoverse@yahoo.com>
+Description:
+    Select point(s) via mouse-click.
+        This file is
+    o3305511514732034100265022276035257245577300/DESCRIPTION
+License: AGPL-3
+Encoding: UTF-8
+Installation: To install, copy this package, including its
+    containing subdirectory, to a known directory. The
+    subdirectory should be named
+    o3305511514732034100265022276035257245577300
+    to be consistent with the design of this package.
+section---DEVELOPER-NOTES:
+    ============================================================
+    This packages includes modified copies of elements of
+    o2623064040723351104365234371651414660040072
+    The modifications remove unnecesary "handlers" and adjusts
+    for the simplification of the file structure (the removal of
+    a level of directory nesting).
+        This package is a successor of
+    o3261154561143542514275047060431465673452603
+section--HELP:
+    ============================================================
+help---Usage:
+    ------------------------------------------------------------
+            # PRECONDITION: One of a few certain graphics
+            # devices must correspond with `dev.cur()`.
+    ipoint.click <- source ( paste0 ( pathname , "/ipoint.click.R" )
+        ) [[ 1 ]] ( pathname )
+            # where `pathname` is the pathname where this
+            # package is installed.  A successful **call** to
+            # ipoint.click requires that at least one graphics
+            # device be present.
+    ipoint.click(XY, leftClick, env, out = c("i", "leftClick", "env")) 
+help---Arguments:
+    -----------------------------------------------------------
+    XY:
+        A two-column numeric matrix. Coordinates for the "x" and
+        "y" directions are taken from columns 1 and 2,
+        consistent with the primary argument of `points`.
+    leftClick:
+        One of several functions that capture a left-click. See
+        Examples for one way to obtain such a function.
+    env:
+        One of several environments that support leftClick. See
+        Examples for one way to obtain such a function.
+    out:
+        Specifies the type of return desired: indices of
+        near-points ("i"), a function compatible with the
+        leftClick argument ("leftClick"), or an environment
+        compatible with the env argument ("env").
+help---Value
+    ------------------------------------------------------------
+    The return depends upon the `out` argument. See description
+    of `out` in the Arguments section.
+help---Details:
+    ------------------------------------------------------------
+    When calling with `out == "i"` (the default), `ipoint.click`
+    waits for either a click (with the pointing device's primary
+    button) or a keyboard event. If a keyboard event occurs, an
+    empty integer vector is returned. If a click occurs, the
+    indices of the points nearest the click-location are
+    returned.
+help---Examples:
+    ------------------------------------------------------------
+                #   TYPICAL, INITIAL SETUP:
+                #
+                #       -   REPLACE "pathname" WITH THE PATHNAME
+                #           TO THIS PACKAGE.
+                #       -   SOURCE THE PACKAGE-LOADER.
+                #
+    pathname <- "pathname"
+    ipoint.click <- source ( paste0 ( pathname , "/ipoint.click.R" )
+	        ) [[ 1 ]] ( pathname )
+                #   COMMON SETUP FOR THE EXAMPLES THAT FOLLOW:---
+    dev.new()
+    M <- matrix(ncol = 2, byrow = TRUE, data =
+        c(0, 0,   1, 0,   1, 1,   0, 1,   0, 1))
+        # THE 4TH AND 5TH POINTS ARE INTENTIONALLY COLOCATED.
+    image(9 * c(-1, 1), 9 * c(-1, 1), matrix(1), col = NA )
+    points(M)
+    text(M[, 1], M[, 2], seq_len(nrow(M)), pos = 4)
+                #   METHOD 1: RECOMMENDED IF THERE ARE JUST A
+                #   FEW CALLS: A REQUIRED ENVIRONMENT AND
+                #   FUNCTION ARE COMPUTED INTERNALLY FOR EACH
+                #   CALL.
+    ipoint.click (M)
+                #   METHOD 2: COMPUTE AND STORE REQUIRED
+                #   ENVIRONMENT. USE THE ENVIRONMENT FOR EACH
+                #   CALL.
+    Env <- ipoint.click(out = "env")
+    ipoint.click (M, env = Env )
+                #   METHOD 3. COMPUTE AND STORE THE REQUIRED
+                #   FUNCTION. USE THE FUNCTION FOR EACH CALL.
+                #   FOR EACH DEVICE TO BE INTERACTED WITH, THERE
+                #   SHOULD BE A SEPARATE FUNCTION.
+    leftClick <- ipoint.click(env = Env, out = "leftClick")
+    ipoint.click(M, leftClick = leftClick)
+                #   METHOD 4---BY WAY OF EXAMPLE---RECOMMENDED
+                #   FOR REPEATED CALLS WITH THE SAME DEVICE.
+                #   I.E., COMPUTE leftClick ONCE, THEN REUSE.
+    leftClick <- ipoint.click(out = "leftClick")
+    while(length(i <- ipoint.click(M, leftClick = leftClick)))
+            for (k in i) cat(sep = "" , k, ": (",
+                paste(M[k,], collapse = ", "), ")\n")
