@@ -1,0 +1,97 @@
+Package: o2135740313330305114275167002025617407373107
+Type: Package
+Title: Click to select point-pairs
+Version: 2022.09-30
+Date: 2022-09-30
+Author: D. Michael Parrish [aut]
+Maintainer: Neat O <neatoverse@yahoo.com>
+Description:
+    Find which of several pairs of points have been clicked.
+        This package is intended to support the rearrangement
+    of graphical objects by providing a mouse interface to a
+    collection of locations (e.g., possible locations of
+    objects).
+        This file is
+    o2135740313330305114275167002025617407373107/DESCRIPTION
+License: AGPL-3
+Encoding: UTF-8
+Installation: To install, copy this package, including its
+    containing subdirectory, to a known directory. The
+    subdirectory should be named
+    o2135740313330305114275167002025617407373107
+    to be consistent with the design of this package.
+section---DEVELOPER-NOTES:
+    ============================================================
+    This package is a successor of
+    o3305511514732034100265022276035257245577300
+section--HELP:
+    ============================================================
+help---Usage:
+    ------------------------------------------------------------
+            # PRECONDITION: One of a few certain graphics
+            # devices must correspond with `dev.cur()`.
+    ipoint2.2click <- source ( paste0 ( pathname , "/ipoint2.2click.R" )
+        ) [[ 1 ]] ( pathname )
+            # where `pathname` is the pathname where this
+            # package is installed.  A successful **call** to
+            # ipoint.click requires that at least one graphics
+            # device be present.
+    ipoint2.2click(
+        xy,
+        leftClick = ipoint.click(out = "leftClick"),
+        msgPrefix = "ipoint2.2click: ",
+        quiet = FALSE)
+help---Arguments:
+    -----------------------------------------------------------
+    xy:
+        A two-column numeric matrix. Coordinates for the "x" and
+        "y" directions are taken from columns 1 and 2,
+        consistent with the primary argument of `points`.
+    leftClick:
+        One of several functions that capture a left-click. By
+        default, an internal function is called to obtain such.
+    msgPefix:
+        A character string to write to `stderr()` before any
+        diagnostic messages.
+    quiet:
+        If `TRUE`, write only error messages to `stderr()`.
+        If `FALSE`, write all messages.
+help---Value
+    ------------------------------------------------------------
+    A numeric index vector of length two: If the process was
+    canceled, `c(NA, NA)`; otherwise, the indices (row numbers)
+    of the points in `xy` that correspond with the clicks.
+help---Examples:
+    ------------------------------------------------------------
+                #   TYPICAL, INITIAL SETUP:
+                #
+                #       -   REPLACE "pathname" WITH THE PATHNAME
+                #           TO THIS PACKAGE.
+                #       -   SOURCE THE PACKAGE-LOADER.
+                #
+    pathname <- "pathname"
+    ipoint2.2click <- source ( paste0 ( pathname , "/ipoint2.2click.R" )
+	        ) [[ 1 ]] ( pathname )
+                #   COMMON SETUP FOR THE EXAMPLES THAT FOLLOW:---
+    GRID <- source ( paste0 ( pathname , "/lib/exampleGrid.R" ) ) [[ 1 ]]
+    GRID $ redraw ()
+                #   METHOD 1: RECOMMENDED IF THERE ARE JUST A
+                #   FEW CALLS: A REQUIRED ENVIRONMENT AND
+                #   FUNCTION ARE COMPUTED INTERNALLY FOR EACH
+                #   CALL.
+    ipoint2.2click ( GRID $ XY )
+                #   METHOD 2. COMPUTE AND STORE THE REQUIRED
+                #   FUNCTION. USE THE FUNCTION FOR EACH CALL.
+                #   FOR EACH DEVICE TO BE INTERACTED WITH, THERE
+                #   SHOULD BE A SEPARATE FUNCTION.
+    ipoint.click <- environment ( ipoint2.2click ) $ ipoint.click
+    Env <- ipoint.click ( out = "env" )
+    leftClick. <- ipoint.click ( env = Env , out = "leftClick" )
+    ipoint2.2click ( GRID $ XY , leftClick = leftClick. )
+                #   EXAMPLE PROGRAM. MOVE OBJECTS TO ANY OF A
+                #   FEW LOCATIONS.
+    MOVEABLES <- source ( paste0 (
+        pathname , "/lib/exampleMoveables.R" ) ) [[ 1 ]] (
+            GRID $ XY ,
+            ipoint2.2click = ipoint2.2click )
+    MOVEABLES $ mmove ( redraw = GRID $ redraw )
